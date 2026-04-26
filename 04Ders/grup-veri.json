@@ -1,0 +1,22 @@
+[
+  {
+    "tip": "meyve",
+    "data": ["elma", "armut", "muz", "kiraz"]
+  },
+  {
+    "tip": "renk",
+    "data": ["kırmızı", "mavi", "yeşil", "sarı"]
+  },
+  {
+    "tip": "şehir",
+    "data": ["İstanbul", "Ankara", "İzmir", "Bursa"]
+  },
+  {
+    "tip": "hayvan",
+    "data": ["kedi", "köpek", "aslan", "fil"]
+  },
+  {
+    "tip": "meslek",
+    "data": ["mühendis", "doktor", "öğretmen", "avukat"]
+  }
+]

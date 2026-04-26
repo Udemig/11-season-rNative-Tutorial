@@ -1,0 +1,194 @@
+[
+  {
+    "id": 1,
+    "tip": "elma",
+    "adi": "Kırmızı Elma",
+    "deger": 12.5
+  },
+  {
+    "id": 2,
+    "tip": "armut",
+    "adi": "Yeşil Armut",
+    "deger": 10.3
+  },
+  {
+    "id": 3,
+    "tip": "muz",
+    "adi": "Yerli Muz",
+    "deger": 6.7
+  },
+  {
+    "id": 4,
+    "tip": "kiraz",
+    "adi": "Bing Kirazı",
+    "deger": 15.2
+  },
+  {
+    "id": 5,
+    "tip": "portakal",
+    "adi": "Sarı Portakal",
+    "deger": 9.8
+  },
+  {
+    "id": 6,
+    "tip": "mandalina",
+    "adi": "Sulu Mandalina",
+    "deger": 7.4
+  },
+  {
+    "id": 7,
+    "tip": "elma",
+    "adi": "Granny Smith Elma",
+    "deger": 13.9
+  },
+  {
+    "id": 8,
+    "tip": "karpuz",
+    "adi": "Tatlı Karpuz",
+    "deger": 18.4
+  },
+  {
+    "id": 9,
+    "tip": "armut",
+    "adi": "Beyaz Armut",
+    "deger": 11.1
+  },
+  {
+    "id": 10,
+    "tip": "elma",
+    "adi": "Fuji Elma",
+    "deger": 14.3
+  },
+  {
+    "id": 11,
+    "tip": "erik",
+    "adi": "Kırmızı Erik",
+    "deger": 14.6
+  },
+  {
+    "id": 12,
+    "tip": "elma",
+    "adi": "Golden Elma",
+    "deger": 11.7
+  },
+  {
+    "id": 13,
+    "tip": "üzüm",
+    "adi": "Siyah Üzüm",
+    "deger": 8.5
+  },
+  {
+    "id": 14,
+    "tip": "limon",
+    "adi": "Meyer Limonu",
+    "deger": 5.2
+  },
+  {
+    "id": 15,
+    "tip": "nar",
+    "adi": "Dondurulmuş Nar",
+    "deger": 22.0
+  },
+  {
+    "id": 16,
+    "tip": "incir",
+    "adi": "Beyaz İncir",
+    "deger": 9.0
+  },
+  {
+    "id": 17,
+    "tip": "elma",
+    "adi": "Granny Smith Elma",
+    "deger": 13.9
+  },
+  {
+    "id": 18,
+    "tip": "kayısı",
+    "adi": "Kuru Kayısı",
+    "deger": 12.8
+  },
+  {
+    "id": 19,
+    "tip": "kavun",
+    "adi": "Beyaz Kavun",
+    "deger": 21.4
+  },
+  {
+    "id": 20,
+    "tip": "karpuz",
+    "adi": "Karpuz Kralı",
+    "deger": 19.7
+  },
+  {
+    "id": 21,
+    "tip": "elma",
+    "adi": "Red Delicious Elma",
+    "deger": 10.6
+  },
+  {
+    "id": 22,
+    "tip": "armut",
+    "adi": "Kızıl Armut",
+    "deger": 10.1
+  },
+  {
+    "id": 23,
+    "tip": "muz",
+    "adi": "Chiquita Muz",
+    "deger": 7.0
+  },
+  {
+    "id": 24,
+    "tip": "kiraz",
+    "adi": "Asma Kirazı",
+    "deger": 16.2
+  },
+  {
+    "id": 25,
+    "tip": "portakal",
+    "adi": "Kan Portakalı",
+    "deger": 13.5
+  },
+  {
+    "id": 26,
+    "tip": "erik",
+    "adi": "Siyah Erik",
+    "deger": 15.0
+  },
+  {
+    "id": 27,
+    "tip": "şeftali",
+    "adi": "Kırmızı Şeftali",
+    "deger": 18.3
+  },
+  {
+    "id": 28,
+    "tip": "nektarin",
+    "adi": "Beyaz Nektarin",
+    "deger": 17.0
+  },
+  {
+    "id": 29,
+    "tip": "üzüm",
+    "adi": "Beyaz Üzüm",
+    "deger": 9.5
+  },
+  {
+    "id": 30,
+    "tip": "portakal",
+    "adi": "Tatlı Portakal",
+    "deger": 8.2
+  },
+  {
+    "id": 31,
+    "tip": "portakal",
+    "adi": "Tatlı Portakal",
+    "deger": 8.2
+  },
+  {
+    "id": 32,
+    "tip": "portakal",
+    "adi": "Tatlı Portakal",
+    "deger": 8.2
+  }
+]
