@@ -5,8 +5,8 @@ import MasonryList from '@react-native-seoul/masonry-list';
 import { mealData } from '../constants';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import Loading from './loading';
-import { useNavigation } from "@react-navigation/native";
 import { CachedImage } from '../helpers';
+import { useNavigation } from "@react-navigation/native";
 
 
 

@@ -97,7 +97,7 @@ const HomeScreen = () => {
 
         {/* kategoriler*/}
         <View>
-          {categories.length > 0 && <Categories categories={categories} activeCategory={activeCategory} handleChangeCategory={handleChangeCategory} />}
+          {categories.length > 0 && <Categories categories={categories} activeCategory={activeCategory} setActiveCategory={handleChangeCategory} />}
         </View>
 
         {/* Tarifler */}
