@@ -1,20 +1,20 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig";
 
 
 export const AuthContext = createContext()
 
-export const AuthContextProvider = ({children}) => {
+export const AuthContextProvider = ({ children }) => {
 
-    const [user,setUser] = useState(null)
+    const [user, setUser] = useState(null)
     const [isAuthenticated, setIsAuthenticated] = useState(undefined)
 
 
-    useEffect(()=>{
-        const unsub = onAuthStateChanged(auth, async (firebaseUser)=>{
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
             if (firebaseUser) {
                 setIsAuthenticated(true)
                 await updateUserData(firebaseUser.uid)
@@ -24,25 +24,52 @@ export const AuthContextProvider = ({children}) => {
             }
         })
         return unsub
-    },[])
+    }, [])
 
-    const updateUserData = async (userId) =>{
+    const updateUserData = async (userId) => {
+        if (!userId) return
 
-    }
+        const docRef = doc(db, "users", userId)
+        const docSnap = await getDoc(docRef)
 
-    const login = async (email, password) =>{
-        console.log("hatamiz2 ", email , " ", password)
-        try {
-            await signInWithEmailAndPassword(auth, email, password)
-            return {success: true}
-        } catch (error) {
-            let msg = error.message
-            console.log("hatamiz1 ", msg)
-            return {success: false, msg}
+        if (docSnap.exists()) {
+            let data = docSnap.data()
+
+            setUser({
+                uid: userId,
+                userId: data.userId || userId,
+                username: data.username,
+                profileUrl: data.profileUrl,
+                email: auth.currentUser?.email
+            })
+        } else {
+            setUser({
+                uid: userId,
+                userId,
+                email: auth.currentUser?.email
+            })
         }
     }
 
-    const logout = async () =>{
+    const login = async (email, password) => {
+        console.log("hatamiz2 ", email, " ", password)
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+            return { success: true }
+        } catch (error) {
+            let msg = error.message
+            console.log("hatamiz1 ", msg)
+            return { success: false, msg }
+        }
+    }
+
+    const logout = async () => {
+        try {
+            await signOut(auth)
+            return {success: true}
+        } catch (error) {
+            return {success: false, msg: error.message}
+        }
 
     }
 
@@ -53,24 +80,24 @@ export const AuthContextProvider = ({children}) => {
 
             console.log("cevap ", response.user)
 
-            await setDoc(doc(db, "users", response.user.uid),{
+            await setDoc(doc(db, "users", response.user.uid), {
                 username,
                 profileUrl,
                 userId: response.user.uid,
             })
-            
-            return {success: true, data: response.user}
-            
+
+            return { success: true, data: response.user }
+
         } catch (error) {
             let msg = error.message
-            return {success: false, msg}
+            return { success: false, msg }
         }
     }
 
 
 
     return (
-        <AuthContext.Provider value={{user, isAuthenticated, login, register, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     )
