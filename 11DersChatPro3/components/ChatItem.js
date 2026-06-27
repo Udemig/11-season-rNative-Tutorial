@@ -1,49 +1,94 @@
 import { Image } from 'expo-image';
-import { collection, doc, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 import { db } from "../firebaseConfig";
 import { blurhash, formatDate, getRoomId } from '../utils/common';
 
 const ChatItem = ({ item, router, noBorder, currentUser }) => {
-
-  const [lastMessage, setLastMessage] = useState([])
+  const [lastMessage, setLastMessage] = useState(undefined);
 
   const openChatRoom = () => {
-    router.push({pathname: "/chatRoom", params: item})
-  }
+    router.push({
+      pathname: "/chatRoom",
+      params: item,
+    });
+  };
 
-  const renderTime = () =>{
-    if (lastMessage){
-      let date = lastMessage?.createdAt
-      console.log("zamanaa ", date)
-      return formatDate(date)
+  const renderTime = () => {
+    if (!lastMessage?.createdAt?.seconds) return "";
+
+    const date = lastMessage.createdAt;
+    return formatDate(new Date(date.seconds * 1000));
+  };
+
+  const renderLastMessage = () => {
+    if (lastMessage === undefined) return "Yükleniyor...";
+    if (lastMessage === null) return "Merhaba de";
+
+    if (currentUser?.userId === lastMessage?.userId) {
+      return "Sen: " + lastMessage?.text;
     }
-  }
 
-  useEffect(()=>{
+    return lastMessage?.text;
+  };
 
-    let roomId = getRoomId(currentUser?.userId, item?.userId)
-    const docRef = doc(db, "rooms", roomId)
-    const messageRef = collection(docRef, "messages")
-    const q = query(messageRef, orderBy("createdAt","desc"))
+  useEffect(() => {
+    if (!currentUser?.userId || !item?.userId) return;
 
-      
+    const roomId = getRoomId(currentUser.userId, item.userId);
 
-  },[])
+    const docRef = doc(db, "rooms", roomId);
+    const messageRef = collection(docRef, "messages");
+
+    const q = query(
+      messageRef,
+      orderBy("createdAt", "desc"),
+      limit(1)
+    );
+
+    const unsub = onSnapshot(
+      q,
+      (snapshot) => {
+        if (snapshot.empty) {
+          setLastMessage(null);
+          return;
+        }
+
+        const lastMsg = snapshot.docs[0].data();
+
+        setLastMessage({
+          id: snapshot.docs[0].id,
+          ...lastMsg,
+        });
+      },
+      (error) => {
+        console.log("mesaj aliminda hata ", error);
+      }
+    );
+
+    return () => unsub();
+  }, [currentUser?.userId, item?.userId]);
 
   return (
     <TouchableOpacity
-      style={{ marginHorizontal: 10 }}
       onPress={openChatRoom}
       style={{
         marginHorizontal: 10,
         borderBottomWidth: noBorder ? 0 : StyleSheet.hairlineWidth,
         borderBottomColor: '#d4d4d4',
-        
       }}
-      className="flex-row items-center gap-3"    >
+      className="flex-row items-center gap-3"
+    >
       <Image
         source={{ uri: item?.profileUrl }}
         style={{
@@ -51,7 +96,7 @@ const ChatItem = ({ item, router, noBorder, currentUser }) => {
           width: hp(6),
           borderRadius: hp(3),
           overflow: "hidden",
-          marginVertical: 5
+          marginVertical: 5,
         }}
         placeholder={{ blurhash }}
       />
@@ -73,21 +118,22 @@ const ChatItem = ({ item, router, noBorder, currentUser }) => {
             style={{ fontSize: hp(1.6) }}
             className="font-medium text-neutral-500"
           >
-            az once
+            {renderTime()}
           </Text>
         </View>
 
         <Text
           style={{ fontSize: hp(1.6), lineHeight: hp(2.2) }}
           className="font-medium text-neutral-500"
+          numberOfLines={1}
         >
-          son mesaj
+          {renderLastMessage()}
         </Text>
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default ChatItem
+export default ChatItem;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
